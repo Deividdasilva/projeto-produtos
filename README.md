@@ -27,6 +27,7 @@ docker-compose up -d
 ### Executando os Scripts SQL
 
 **Após iniciar os containers, conecte-se ao container do PostgreSQL:**
+
 docker exec -it postgres-db psql -U postgres
 
 **Dentro do cliente PostgreSQL, crie o banco de dados:**
