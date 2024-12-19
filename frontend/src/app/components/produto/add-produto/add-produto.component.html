@@ -1,0 +1,45 @@
+<div class="container mt-4 d-flex justify-content-center">
+  <div class="card" style="width: 70%;">
+    <div class="card-header text-center">
+      <h2 class="card-title">Adicionar Produto</h2>
+    </div>
+    <div class="card-body">
+      <form (ngSubmit)="addProduto()" #form="ngForm" novalidate class="needs-validation">
+
+        <div class="form-group">
+          <label for="titulo">Título do Produto</label>
+          <input type="text" class="form-control" id="titulo" name="titulo" [(ngModel)]="newProduto.titulo" required #titulo="ngModel">
+          <div *ngIf="titulo.errors && (titulo.dirty || titulo.touched)" class="invalid-feedback">
+            Por favor, insira o título do produto.
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="descricao">Descrição do Produto</label>
+          <textarea class="form-control" id="descricao" name="descricao" [(ngModel)]="newProduto.descricao" required #descricao="ngModel"></textarea>
+          <div *ngIf="descricao.errors && (descricao.dirty || descricao.touched)" class="invalid-feedback">
+            Por favor, insira a descrição do produto.
+          </div>
+        </div>
+
+        <!-- Campo Dropdown para Seleção de Categoria -->
+        <div class="form-group">
+          <label for="categoria">Categoria</label>
+          <select class="form-control" id="categoria" name="categoria" [(ngModel)]="newProduto.categoriaId" required #categoria="ngModel">
+            <option *ngFor="let categoria of categorias" [value]="categoria.id">{{ categoria.titulo }}</option>
+          </select>
+          <div *ngIf="categoria.errors && (categoria.dirty || categoria.touched)" class="invalid-feedback">
+            Por favor, selecione uma categoria.
+          </div>
+        </div>
+
+        <br>
+
+        <div class="d-flex justify-content-between">
+          <button type="button" class="btn btn-secondary" (click)="voltar()">Voltar</button>
+          <button type="submit" class="btn btn-primary" [disabled]="form.invalid">Adicionar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

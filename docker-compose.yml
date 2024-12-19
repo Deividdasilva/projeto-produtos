@@ -1,0 +1,47 @@
+version: '3.8'
+
+services:
+  postgres-db:
+    image: postgres:13
+    container_name: postgres-db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 123
+      POSTGRES_DB: api_produtos
+    ports:
+      - "5432:5432"
+    volumes:
+    - postgres-data:/var/lib/postgresql/data
+    # - ./api-produtos/database-docker/init.sql:/docker-entrypoint-initdb.d/init.sql
+
+
+  backend:
+    build:
+      context: ./api-produtos
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres-db:5432/api_produtos
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: 123
+    depends_on:
+      - postgres-db
+
+  frontend:
+    image: node:18.19.0
+    volumes:
+      - './frontend/:/app'
+    ports:
+      - "4200:4200"
+    depends_on:
+      - backend
+    command: >
+      sh -c "cd /app && npm install -g @angular/cli && npm install && ng serve --host 0.0.0.0 --port 4200"
+
+volumes:
+  postgres-data:
+
+networks:
+  default:
+    driver: bridge

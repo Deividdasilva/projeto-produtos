@@ -1,0 +1,50 @@
+<div class="container mt-4 d-flex justify-content-center">
+  <div class="card" style="width: 70%;">
+    <div class="card-header text-center">
+      <h2 class="card-title">Editar Produto</h2>
+    </div>
+    <div class="card-body">
+      <form (ngSubmit)="updateProduto()" #form="ngForm" novalidate class="needs-validation">
+
+        <!-- Campo para o Título do Produto -->
+        <div class="form-group">
+          <label for="titulo">Título do Produto</label>
+          <input type="text" class="form-control" id="titulo" [(ngModel)]="produto.titulo" name="titulo" required #titulo="ngModel">
+          <div class="invalid-feedback" *ngIf="titulo.invalid && (titulo.dirty || titulo.touched)">
+            Por favor, insira o título do produto.
+          </div>
+        </div>
+
+        <!-- Campo para a Descrição do Produto -->
+        <div class="form-group">
+          <label for="descricao">Descrição do Produto</label>
+          <textarea class="form-control" id="descricao" [(ngModel)]="produto.descricao" name="descricao" required #descricao="ngModel"></textarea>
+          <div class="invalid-feedback" *ngIf="descricao.invalid && (descricao.dirty || descricao.touched)">
+            Por favor, insira a descrição do produto.
+          </div>
+        </div>
+
+        <!-- Campo para Seleção de Categoria -->
+        <div class="form-group">
+          <label for="categoria">Categoria</label>
+          <select class="form-control" id="categoria" [(ngModel)]="produto.categoriaId" name="categoriaId" required #categoria="ngModel">
+            <option *ngFor="let categoria of categorias" [value]="categoria.id" [selected]="produto.categoriaId === categoria.id">
+              {{ categoria.titulo }}
+            </option>
+          </select>
+          <div class="invalid-feedback" *ngIf="categoria.invalid && (categoria.dirty || categoria.touched)">
+            Por favor, selecione uma categoria.
+          </div>
+        </div>
+
+        <br>
+
+        <!-- Botões de Voltar e Salvar -->
+        <div class="d-flex justify-content-start">
+          <button type="button" class="btn btn-secondary me-2" (click)="voltar()">Voltar</button>
+          <button type="submit" class="btn btn-primary" [disabled]="form.invalid">Salvar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
