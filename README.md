@@ -30,10 +30,13 @@ docker-compose up -d
 docker exec -it postgres-db psql -U postgres
 
 **Dentro do cliente PostgreSQL, crie o banco de dados:**
+
 CREATE DATABASE api_produtos;
 
 **Execute os comandos SQL para criar as tabelas e constraints:**
+
 *Criação da tabela de categorias*
+
 CREATE TABLE categoria (
     id BIGSERIAL NOT NULL,
     titulo VARCHAR(100) NOT NULL,
@@ -41,6 +44,7 @@ CREATE TABLE categoria (
 );
 
 *Criação da tabela de produtos*
+
 CREATE TABLE produto (
     id BIGSERIAL NOT NULL,
     titulo VARCHAR(100) NOT NULL,
